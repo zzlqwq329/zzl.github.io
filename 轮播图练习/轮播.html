@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lunbotu</title>
+    <style>
+        #main{
+            /* border: 1px solid red; */
+            width: 1000px;
+            height: 600px;
+            /* margin-left: 1000px; */
+            /* margin-top: 500px; */
+            margin: 0 auto;
+            position: relative;
+        }
+        img{
+            width: 1000px;
+            height: 600px;
+            top: 0px;
+            left: 0px;
+            position: absolute;
+            /* display: none */
+
+        }
+        .arrow div{
+            width: 50px;
+            height: 50px;
+            /* border: 1px solid red; */
+            text-align: center;
+            line-height: 50px;
+            position: relative;
+            top: 275px;
+        }
+        .arrow .left{
+            float: left;
+        }
+        .arrow .right{
+            float: right;
+        }
+        .arrow div:hover{
+            background-color: gray;
+            color: aqua;
+            border-radius: 50%;
+        }
+        .tab span{
+            width: 10px;
+            height: 10px;
+            border: 1px solid yellow;
+            display: inline-block;
+            border-radius: 50%;
+            background-color: blue;
+        }
+        .tab{
+            position: absolute;
+            left: 480px;
+            bottom: 20px;
+        }
+        .tab span:hover{
+            border: 1px solid blue;
+            background-color: yellow;
+        }
+
+        .tab .on{
+            border: 1px solid blue;
+            background-color: yellow;
+        }
+    
+    
+    
+    
+    
+    </style>
+</head>
+<body>
+    <div id = 'main'>
+        <div class = 'image'>
+            <img src="image/1.png" alt="">
+            <img src="image/2.png" alt="">
+            <img src="image/3.png" alt="">
+            <img src="image/4.png" alt="">
+        </div>
+        <div class="arrow">
+            <div class="left">&lt;</div>
+            <div class="right">&gt;</div>
+        </div>
+        <div class="tab">
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+</body>
+<script src="http://libs.baidu.com/jquery/2.1.4/jquery.min.js"></script>
+<script>
+    main = $('#main');
+    console.log(main);
+    imgs = $('img')
+    console.log(imgs);
+    arrow = $('.arrow div');
+    console.log(arrow);
+    tab = $('.tab span');
+    console.log(tab);
+
+    imgs.hide().eq(0).show();
+    tab.eq(0).addClass('on');
+
+
+    choose = 0
+    function change(i){
+        imgs.eq(choose).fadeOut(2000);
+        tab.eq(choose).removeAttr('class');
+        imgs.eq(i).fadeIn(2000);
+        tab.eq(i).addClass('on');
+        choose = i;
+    }
+
+    auto = function(){
+        time = setInterval(function(){
+            num = choose;
+            num += 1;
+            if(num >= 4){
+                num = 0;
+            }
+            change(num);
+        },5000);
+    }
+    auto();
+
+    arrow.click(function(){
+        num = choose;
+        if($(this).index()){
+            num += 1;
+            if(num >=4){
+                num = 0
+            }
+        }else{
+            num -=1;
+            if(num <0){
+                num = 3;
+            }
+        }
+        change(num);
+    });
+
+
+
+    tab.click(function(){
+        num = $(this).index();
+        change(num);
+    });
+
+
+    main.hover(function(){
+        clearInterval(time);
+    },function(){
+        auto();
+    })
+
+
+
+
+
+
+</script>
+</html>
